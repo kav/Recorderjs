@@ -1,5 +1,18 @@
+(function (root, factory) {
+   // jshint strict: false
+   // istanbul ignore next
+   if (typeof define === 'function' && define.amd) { // AMD
+     define([], function () {
+       return (root.Recorder = factory(root));
+     });
+   } else if (typeof module === 'object' && module.exports) { // CommonJS
+     module.exports = factory(root);
+   } else { // Browser globals
+     root.Recorder = factory(root);
+   }
+ }(typeof window !== 'undefined' ? window : this, function (_root) {
 "use strict";
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
+_root.AudioContext = _root.AudioContext || _root.webkitAudioContext;
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 var Recorder = function( config ){
@@ -208,3 +221,5 @@ Recorder.prototype.streamPage = function( page ) {
     this.eventTarget.dispatchEvent( new Event( 'stop' ) );
   }
 };
+return Recorder;
+});
